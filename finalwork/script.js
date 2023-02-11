@@ -4,12 +4,12 @@ function generate(a, b) {
     for (let i = 0; i < a; i++) {
         matrix.push([])
         for (let j = 0; j < b; j++) {
-            matrix[i].push(Math.floor(Math.random() * 4))            
+            matrix[i].push(Math.floor(Math.random() * 4))
         }
-        
+
     }
 }
-function col(){
+function col() {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             matrix[0][x] = 5
@@ -18,10 +18,10 @@ function col(){
             matrix[matrix.length - 1][x] = 5
         }
     }
-   
+
 }
 
-generate(120,120)
+generate(120, 120)
 col()
 var side = 5;
 var grassArr = [];
@@ -40,30 +40,8 @@ function setup() {
 
 
 
-// setTimeout(function(){
-//     for (let i = 0; i < matrix.length; i++) {
-//     for (let j = 0; j < matrix[i].length; j++) {
-//         let x = Math.round(Math.random() *50)
-//         let y = Math.round(Math.random() *50)
-//         if(matrix[y][x] ===0){
 
-//             matrix[i].push(4)            
-//         }
-//     }}
-//     for (var y = 0; y < matrix.length; y++) {
-//         for (var x = 0; x < matrix[y].length; x++) {
-//             if (matrix[y][x] == 4) {
-//                     var gr = new Garnuk(x, y)
-//                     garnukArr.push(gr)
-//                 }
-//         }
-//     }
-
-// },3000)
-
-
-
-function objes(){
+function objes() {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -102,10 +80,7 @@ function draw() {
             else if (matrix[y][x] == 0) {
                 fill("#85C88A");
             }
-            else if (matrix[y][x] == 4){
-                fill("white")
-            }
-            else if (matrix[y][x] == 5){
+            else if (matrix[y][x] == 5) {
                 fill("#85586F")
             }
 
@@ -124,10 +99,7 @@ function draw() {
     for (var i in predatorArr) {
         predatorArr[i].eat()
     }
-    for (var i in cankapatArr){
+    for (var i in cankapatArr) {
         cankapatArr[i].mul()
     }
-    // for (var i in garnukArr){
-    //     garnukArr[i].move()
-    // }
 }
