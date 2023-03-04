@@ -1,4 +1,15 @@
-class GrassEater extends LivingCreature {
+let LivingCreature = require("./livingCreature")
+module.exports = class GrassEater extends LivingCreature {
+    constructor(x, y, index) {
+        super(x, y, index)
+        this.energy = 8
+    }
+    random(ch) {
+        let found = this.chooseCell(ch);
+        let result = Math.floor(Math.random() * found.length)
+        return found[result];
+    }
+
 
     getNewCoordinates() {
         this.directions = [
@@ -18,9 +29,7 @@ class GrassEater extends LivingCreature {
     }
 
     mul() {
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
-
+        var newCell = this.random(0);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -30,12 +39,16 @@ class GrassEater extends LivingCreature {
             grassEaterArr.push(newGrassEater);
             this.energy = 8
         }
+        var newcCell1 = this.random(7);
+        if (newcCell1) {
+            this.energy++
+        }
+
     }
 
     move() {
         this.energy--
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var newCell = this.random(0);
         if (newCell && this.energy >= 0) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -49,8 +62,8 @@ class GrassEater extends LivingCreature {
     }
 
     eat() {
-        var emptyCells = this.chooseCell(1);
-        var newCell = random(emptyCells);
+        var newCell = this.random(1);
+
         if (newCell) {
             this.energy++
             var newX = newCell[0];
@@ -66,13 +79,14 @@ class GrassEater extends LivingCreature {
                 }
             }
 
-            if (this.energy >= 12) {
+            if (this.energy >= 15) {
                 this.mul()
             }
         } else {
             this.move()
         }
     }
+
     die() {
         matrix[this.y][this.x] = 0
         for (var i in grassEaterArr) {
@@ -82,5 +96,7 @@ class GrassEater extends LivingCreature {
             }
         }
     }
+
+
 }
 

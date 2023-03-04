@@ -1,10 +1,15 @@
-
-class Cankapat extends LivingCreature {
+let LivingCreature = require("./livingCreature")
+module.exports = class Cankapat extends LivingCreature {
+    random(ch){
+        let found = this.chooseCell(ch);
+        let result = Math.floor(Math.random()*found.length)
+        return found[result];
+    }
 
     mul() {
-        var emptyCells = random(this.chooseCell(1));
-        var emptyCells1 = random(this.chooseCell(2));
-        var emptyCells2 = random(this.chooseCell(3));
+        var emptyCells = this.random(1);
+        var emptyCells1 = this.random(2);
+        var emptyCells2 = this.random(3);
 
         if (emptyCells) {
             let x = emptyCells[0]

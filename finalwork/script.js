@@ -1,105 +1,66 @@
-let matrix = []
-function generate(a, b) {
-    let m = matrix.length - 1
-    for (let i = 0; i < a; i++) {
-        matrix.push([])
-        for (let j = 0; j < b; j++) {
-            matrix[i].push(Math.floor(Math.random() * 4))
-        }
+var socket = io()
 
-    }
-}
-function col() {
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            matrix[0][x] = 5
-            matrix[y][0] = 5
-            matrix[y][matrix[x].length - 1] = 5
-            matrix[matrix.length - 1][x] = 5
-        }
-    }
-
-}
-
-generate(120, 120)
-col()
 var side = 5;
-var grassArr = [];
-var grassEaterArr = [];
-var predatorArr = [];
-var cankapatArr = [];
-var garnuk = [];
+
 
 
 function setup() {
     noStroke()
-    frameRate(15);
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    frameRate(5);
+    createCanvas(120 * side, 120 * side);
     background('#acacac');
 }
 
+let colors = ["#85C88A", "#357C3C", "#FFC300", "#B33030", "#85C88A", "white", "#85586F", "#2F58CD"]
+let summer = ["#85C88A", "#056a04", "#FFC300", "#B33030", "#85C88A", "white", "#85586F", "#2F58CD"]
+let spring = ["#85C88A", "#057f04", "#FFC300", "#B33030", "#85C88A", "white", "#85586F", "#0509f5"]
+let autumn = ["#5f6765", "#5f8f65", "#FFC300", "#B33030", "#5f6765", "white", "#85C88A", "#2465e8"]
+let winter = ["gray", "#aa9c67", "#FFC300", "#B33030", "gray", "white", "#85C88A", "#2465e8"]
 
+let stateBaner = document.getElementById("state")
 
+function draww(matrix,state) {
+    let {
+        grass,
+        grassEater,
+        predator, 
+        garnuk,
+        water,
+        cankapat, 
+    } = state
 
-function objes() {
+    stateBaner.innerText = "grass : " + grass + "\ngrassEater : " + grassEater + "\npredator : " + predator + "\ngarnuk : " + garnuk  + "\nwater : " + water + "\ncankapat : " + cankapat
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                var gr = new Grass(x, y)
-                grassArr.push(gr)
-            }
-            else if (matrix[y][x] == 2) {
-                var xt = new GrassEater(x, y)
-                grassEaterArr.push(xt)
-            }
-            else if (matrix[y][x] == 3) {
-                var ut = new Predator(x, y)
-                predatorArr.push(ut)
-            }
-            else if (matrix[y][x] == 5) {
-                var ut = new Cankapat(x, y)
-                cankapatArr.push(ut)
-            }
-        }
-    }
-}
-
-objes()
-function draw() {
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                fill("#357C3C");
-            }
-            else if (matrix[y][x] == 2) {
-                fill("#FFC300");
-            }
-            else if (matrix[y][x] == 3) {
-                fill("#B33030")
-            }
-            else if (matrix[y][x] == 0) {
-                fill("#85C88A");
-            }
-            else if (matrix[y][x] == 5) {
-                fill("#85586F")
-            }
-
+            fill(colors[matrix[y][x]])
             rect(x * side, y * side, side, side)
         }
     }
-
-    for (var i in grassArr) {
-        grassArr[i].mult()
-    }
-
-    for (var i in grassEaterArr) {
-        grassEaterArr[i].eat()
-    }
-
-    for (var i in predatorArr) {
-        predatorArr[i].eat()
-    }
-    for (var i in cankapatArr) {
-        cankapatArr[i].mul()
-    }
 }
+
+socket.on("send matrix", draww)
+
+
+let springBtn = document.getElementById("spring")
+springBtn.addEventListener("click",(evt) =>{
+    colors = spring
+})
+
+let summerBtn = document.getElementById("summer")
+summerBtn.addEventListener("click",(evt) =>{
+    colors = summer
+})
+
+let autumnBtn = document.getElementById("autumn")
+autumnBtn.addEventListener("click",(evt) =>{
+    colors = autumn
+})
+
+let winterBtn = document.getElementById("winter")
+winterBtn.addEventListener("click",(evt) =>{
+    colors = winter
+})
+
+
+
